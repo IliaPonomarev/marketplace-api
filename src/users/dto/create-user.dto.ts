@@ -45,7 +45,7 @@ export class CreateUserDto {
   @Validate(IsExist, ['FileEntity', 'id'], {
     message: 'imageNotExists',
   })
-  photo?: FileEntity | null;
+  file?: FileEntity | null;
 
   @ApiProperty({ type: Role })
   @Validate(IsExist, ['Role', 'id'], {

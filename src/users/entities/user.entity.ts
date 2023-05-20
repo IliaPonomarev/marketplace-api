@@ -10,13 +10,13 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  JoinColumn,
 } from 'typeorm';
 import { Role } from '../../roles/entities/role.entity';
 import { Status } from '../../statuses/entities/status.entity';
 import { FileEntity } from '../../files/entities/file.entity';
 import * as bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
-import { AuthProvidersEnum } from 'src/auth/auth-providers.enum';
 import { Exclude, Expose } from 'class-transformer';
 
 @Entity()
@@ -24,8 +24,6 @@ export class User extends EntityHelper {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // For "string | null" we need to use String type.
-  // More info: https://github.com/typeorm/typeorm/issues/2567
   @Column({ type: String, unique: true, nullable: true })
   @Expose({ groups: ['me', 'admin'] })
   email: string | null;
@@ -51,49 +49,48 @@ export class User extends EntityHelper {
     }
   }
 
-  @Column({ default: AuthProvidersEnum.email })
-  @Expose({ groups: ['me', 'admin'] })
-  provider: string;
-
   @Index()
-  @Column({ type: String, nullable: true })
-  @Expose({ groups: ['me', 'admin'] })
-  socialId: string | null;
-
-  @Index()
-  @Column({ type: String, nullable: true })
+  @Column({ type: String, nullable: true, name: 'first_name' })
   firstName: string | null;
 
   @Index()
-  @Column({ type: String, nullable: true })
+  @Column({ type: String, nullable: true, name: 'last_name' })
   lastName: string | null;
-
-  @ManyToOne(() => FileEntity, {
-    eager: true,
-  })
-  photo?: FileEntity | null;
-
-  @ManyToOne(() => Role, {
-    eager: true,
-  })
-  role?: Role | null;
-
-  @ManyToOne(() => Status, {
-    eager: true,
-  })
-  status?: Status;
 
   @Column({ type: String, nullable: true })
   @Index()
   @Exclude({ toPlainOnly: true })
   hash: string | null;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: Date;
+
+  @Column({ type: Number, nullable: true, name: 'file_id' })
+  fileId: string | null;
+
+  @Column({ type: Number, nullable: true, name: 'role_id' })
+  roleId: string | null;
+
+  @Column({ type: Number, nullable: true, name: 'status_id' })
+  statusId: string | null;
+
+  // связи:
+
+  @ManyToOne(() => FileEntity, (file) => file.users)
+  @JoinColumn({ name: 'file_id' })
+  file?: FileEntity | null;
+
+  @ManyToOne(() => Role, (role) => role.users)
+  @JoinColumn({ name: 'role_id' })
+  role?: Role | null;
+
+  @ManyToOne(() => Status, (status) => status.users)
+  @JoinColumn({ name: 'status_id' })
+  status?: Status;
 }

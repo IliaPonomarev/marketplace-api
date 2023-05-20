@@ -54,18 +54,6 @@ export class AuthService {
       );
     }
 
-    if (user.provider !== AuthProvidersEnum.email) {
-      throw new HttpException(
-        {
-          status: HttpStatus.UNPROCESSABLE_ENTITY,
-          errors: {
-            email: `needLoginViaProvider:${user.provider}`,
-          },
-        },
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
-    }
-
     const isValidPassword = await bcrypt.compare(
       loginDto.password,
       user.password,
@@ -200,6 +188,7 @@ export class AuthService {
   }
 
   async me(user: User): Promise<NullableType<User>> {
+    console.log('user', user)
     return this.usersService.findOne({
       id: user.id,
     });

@@ -9,7 +9,7 @@ export class AuthUpdateDto {
   @Validate(IsExist, ['FileEntity', 'id'], {
     message: 'imageNotExists',
   })
-  photo?: FileEntity;
+  file?: FileEntity;
 
   @ApiProperty({ example: 'John' })
   @IsOptional()

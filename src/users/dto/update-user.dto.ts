@@ -43,7 +43,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @Validate(IsExist, ['FileEntity', 'id'], {
     message: 'imageNotExists',
   })
-  photo?: FileEntity | null;
+  file?: FileEntity | null;
 
   @ApiProperty({ type: Role })
   @IsOptional()
