@@ -8,9 +8,9 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { Status } from 'src/statuses/entities/status.entity';
+import { Status } from 'src/modules/statuses/entities/status.entity';
 import { IsNotExist } from 'src/utils/validators/is-not-exists.validator';
-import { FileEntity } from 'src/files/entities/file.entity';
+import { FileEntity } from 'src/modules/files/entities/file.entity';
 import { IsExist } from 'src/utils/validators/is-exists.validator';
 import { lowerCaseTransformer } from 'src/utils/transformers/lower-case.transformer';
 

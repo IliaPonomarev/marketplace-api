@@ -18,14 +18,14 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/roles/roles.decorator';
-import { RoleEnum } from 'src/roles/roles.enum';
+import { Roles } from 'src/modules/roles/roles.decorator';
+import { RoleEnum } from 'src/modules/roles/roles.enum';
 import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/roles/roles.guard';
+import { RolesGuard } from 'src/modules/roles/roles.guard';
 import { infinityPagination } from 'src/utils/infinity-pagination';
 import { User } from './entities/user.entity';
-import { InfinityPaginationResultType } from '../utils/types/infinity-pagination-result.type';
-import { NullableType } from '../utils/types/nullable.type';
+import { InfinityPaginationResultType } from '../../utils/types/infinity-pagination-result.type';
+import { NullableType } from '../../utils/types/nullable.type';
 
 @ApiBearerAuth()
 @Roles(RoleEnum.admin)

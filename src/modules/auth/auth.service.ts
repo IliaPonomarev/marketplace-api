@@ -5,19 +5,18 @@ import * as bcrypt from 'bcryptjs';
 import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
 import { AuthUpdateDto } from './dto/auth-update.dto';
 import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
-import { RoleEnum } from 'src/roles/roles.enum';
-import { StatusEnum } from 'src/statuses/statuses.enum';
+import { RoleEnum } from 'src/modules/roles/roles.enum';
+import { StatusEnum } from 'src/modules/statuses/statuses.enum';
 import * as crypto from 'crypto';
 import { plainToClass } from 'class-transformer';
-import { Status } from 'src/statuses/entities/status.entity';
-import { Role } from 'src/roles/entities/role.entity';
-import { AuthProvidersEnum } from './auth-providers.enum';
+import { Status } from 'src/modules/statuses/entities/status.entity';
+import { Role } from 'src/modules/roles/entities/role.entity';
 import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
-import { UsersService } from 'src/users/users.service';
-import { ForgotService } from 'src/forgot/forgot.service';
-import { MailService } from 'src/mail/mail.service';
-import { NullableType } from '../utils/types/nullable.type';
-import { LoginResponseType } from '../utils/types/auth/login-response.type';
+import { UsersService } from 'src/modules/users/users.service';
+import { ForgotService } from 'src/modules/forgot/forgot.service';
+import { MailService } from 'src/modules/mail/mail.service';
+import { NullableType } from '../../utils/types/nullable.type';
+import { LoginResponseType } from '../../utils/types/auth/login-response.type';
 
 @Injectable()
 export class AuthService {
