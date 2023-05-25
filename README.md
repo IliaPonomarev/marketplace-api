@@ -112,3 +112,16 @@ docker compose -f docker-compose.ci.yaml --env-file env-example -p ci up --build
 ```bash
 docker run --rm jordi/ab -n 100 -c 100 -T application/json -H "Authorization: Bearer USER_TOKEN" -v 2 http://<server_ip>:3000/api/v1/users
 ```
+
+By default boilerplate used sign in and sign up via email and password.
+
+```mermaid
+sequenceDiagram
+    participant A as Фронтенд
+    participant B as Бэкенд
+
+    A->>B: 1. Регистрируемся с помощью электронной почты и пароля
+    A->>B: 2. Авторизуемся с помощью электронной почты и пароля
+    B->>A: 3. Получаем токен JWT
+    A->>B: 4. В дальнейшем используем данный токен при запросах на сервер
+```
